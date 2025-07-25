@@ -115,6 +115,8 @@ cp .env.example .env
 cp backend/.env.example backend/.env
 ```
 
+The SQL schema can be found in `database/schema.sql`. Paste your database structure there so others can recreate it.
+
 Install server dependencies and start the backend API:
 
 ```bash
