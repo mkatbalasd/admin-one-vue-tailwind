@@ -10,7 +10,14 @@ export default [
 
   {
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    ignores: [
+      '**/dist/**',
+      '**/dist-ssr/**',
+      '**/coverage/**',
+      '**/.laravel-guide/**',
+      '**/.nuxt-guide/**',
+      'backend/**',
+    ],
   },
 
   js.configs.recommended,

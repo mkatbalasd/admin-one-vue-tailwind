@@ -1,4 +1,5 @@
 <script setup>
+/* eslint-disable vue/require-toggle-inside-transition */
 defineProps({
   zIndex: {
     type: String,
@@ -22,6 +23,7 @@ const overlayClick = (event) => {
     :class="[type, zIndex]"
     class="items-center flex-col justify-center overflow-hidden fixed inset-0"
   >
+    <!-- eslint-disable-next-line vue/require-toggle-inside-transition -->
     <transition
       enter-active-class="transition duration-150 ease-in"
       enter-from-class="opacity-0"
@@ -35,6 +37,7 @@ const overlayClick = (event) => {
         @click="overlayClick"
       />
     </transition>
+    <!-- eslint-disable-next-line vue/require-toggle-inside-transition -->
     <transition
       enter-active-class="transition duration-100 ease-out"
       enter-from-class="transform scale-95 opacity-0"
