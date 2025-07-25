@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { mdiMinus, mdiPlus } from '@mdi/js'
 import { getButtonColor } from '@/colors.js'
 import BaseIcon from '@/components/BaseIcon.vue'
@@ -32,6 +33,8 @@ const componentClass = computed(() => [
 ])
 
 const hasDropdown = computed(() => !!props.item.menu)
+
+const { t } = useI18n()
 
 const menuClick = (event) => {
   emit('menu-click', event, props.item)
@@ -68,7 +71,7 @@ const menuClick = (event) => {
           { 'pr-12': !hasDropdown },
           vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : '',
         ]"
-        >{{ item.label }}</span
+        >{{ t(item.label) }}</span
       >
       <BaseIcon
         v-if="hasDropdown"

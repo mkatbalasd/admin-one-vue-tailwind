@@ -2,6 +2,7 @@
 import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import menuAside from '@/menuAside.js'
 import menuNavBar from '@/menuNavBar.js'
 import { useDarkModeStore } from '@/stores/darkMode.js'
@@ -17,6 +18,7 @@ const layoutAsidePadding = 'xl:pl-60'
 const darkModeStore = useDarkModeStore()
 
 const router = useRouter()
+const { t } = useI18n()
 
 const isAsideMobileExpanded = ref(false)
 const isAsideLgActive = ref(false)
@@ -62,7 +64,7 @@ const menuClick = (event, item) => {
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
         <NavBarItemPlain use-margin>
-          <FormControl placeholder="Search (ctrl+k)" ctrl-k-focus transparent borderless />
+          <FormControl :placeholder="t('search')" ctrl-k-focus transparent borderless />
         </NavBarItemPlain>
       </NavBar>
       <AsideMenu
@@ -74,9 +76,9 @@ const menuClick = (event, item) => {
       />
       <slot />
       <FooterBar>
-        Get more with
+        {{ t('getMore') }}
         <a href="https://tailwind-vue.justboil.me/" target="_blank" class="text-blue-600"
-          >Premium version</a
+          >{{ t('premiumVersion') }}</a
         >
       </FooterBar>
     </div>
