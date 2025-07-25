@@ -58,23 +58,7 @@ CREATE TABLE `OPC_Card` (
 --
 -- القوادح `OPC_Card`
 --
-DELIMITER $$
-CREATE TRIGGER `before_insert_opc_card` BEFORE INSERT ON `OPC_Card` FOR EACH ROW BEGIN
-    DECLARE new_token VARCHAR(31);
-
-    -- توليد التوكن UUID المخصص مع التحقق من عدم التكرار
-    SET new_token = generate_custom_uuid();
-    WHILE EXISTS (SELECT 1 FROM OPC_Card WHERE token = new_token) DO
-        SET new_token = generate_custom_uuid();
-    END WHILE;
-
-    -- توليد CardNumber بنفس منطق الدالة PHP
-
-    -- تعيين القيم الجديدة
-    SET NEW.token = new_token;
-END
-$$
-DELIMITER ;
+-- Trigger removed: handled in application layer
 
 -- --------------------------------------------------------
 
@@ -126,21 +110,7 @@ CREATE TABLE `OPC_DriverCard` (
 --
 -- القوادح `OPC_DriverCard`
 --
-DELIMITER $$
-CREATE TRIGGER `before_insert_opc_drivercard` BEFORE INSERT ON `OPC_DriverCard` FOR EACH ROW BEGIN
-    DECLARE new_token VARCHAR(31);
-    
-    -- توليد قيمة UUID مخصص والتأكد من عدم التكرار
-    SET new_token = generate_custom_uuid();
-    WHILE EXISTS (SELECT 1 FROM OPC_DriverCard WHERE token = new_token) DO
-        SET new_token = generate_custom_uuid();
-    END WHILE;
-    
-    -- تعيين القيمة إلى الحقل
-    SET NEW.token = new_token;
-END
-$$
-DELIMITER ;
+-- Trigger removed: handled in application layer
 
 -- --------------------------------------------------------
 
