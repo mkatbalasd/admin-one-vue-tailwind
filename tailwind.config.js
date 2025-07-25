@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
-    require("tailwindcss-dir")(),
+    require("tailwindcss-logical"),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {
