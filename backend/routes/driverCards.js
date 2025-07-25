@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const pool = require('../db')
+const { generateCustomUUID, generateCardNumber } = require('../controllers/helpers')
 
 async function facilityExists(id) {
   const [rows] = await pool.query('SELECT 1 FROM OPC_Facility WHERE FacilityID = ? LIMIT 1', [id])
@@ -31,13 +32,14 @@ router.get('/', async (req, res) => {
 
 // Add driver card
 router.post('/', async (req, res) => {
-  const { CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID } = req.body
-  if (!CardNumber) return res.status(400).json({ error: 'CardNumber required' })
+  const { CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID } = req.body
   try {
     if (FacilityID && !(await facilityExists(FacilityID))) return res.status(400).json({ error: 'Invalid FacilityID' })
     if (DriverID && !(await driverExists(DriverID))) return res.status(400).json({ error: 'Invalid DriverID' })
     if (Supplier && !(await supplierExists(Supplier))) return res.status(400).json({ error: 'Invalid Supplier' })
-    const [result] = await pool.query('INSERT INTO OPC_DriverCard (CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID])
+    const token = await generateCustomUUID()
+    const CardNumber = await generateCardNumber()
+    const [result] = await pool.query('INSERT INTO OPC_DriverCard (token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID])
     const [row] = await pool.query('SELECT * FROM OPC_DriverCard WHERE ID = ?', [result.insertId])
     res.status(201).json(row[0])
   } catch (err) {
