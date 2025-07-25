@@ -108,23 +108,29 @@ Get code & install. Then `dev` or `build` with [Vite](#vite-builds) or integrate
 
 `cd` to project's dir and run `npm install`
 
-Copy the provided `.env.example` files to `.env`:
+Copy the provided `.env.example` files to `.env` and configure your MySQL credentials:
 
 ```bash
 cp .env.example .env
 cp backend/.env.example backend/.env
+# open backend/.env and set DB_HOST, DB_USER, DB_PASSWORD, DB_NAME and DB_PORT
 ```
 
-The SQL schema can be found in `database/schema.sql`. Paste your database structure there so others can recreate it.
+Import the database schema into MySQL (replace values with your credentials):
+
+```bash
+mysql -u <user> -p <database> < database/schema.sql
+```
 
 Install server dependencies and start the backend API:
 
 ```bash
-cd backend && npm install
-npm run dev
+cd backend
+npm install
+npm start
 ```
 
-The default API endpoint defined in `.env.example` is `http://localhost:3000/api`.
+The `VITE_API_URL` variable inside `.env` defines how the frontend communicates with the backend. The default value points to `http://localhost:3000/api`.
 
 ### Vite builds
 
