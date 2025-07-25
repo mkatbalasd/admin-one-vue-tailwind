@@ -5,7 +5,7 @@ import Home from '@/views/HomeView.vue'
 const routes = [
   {
     meta: {
-      title: 'Select style',
+      title: 'selectStyle',
     },
     path: '/',
     name: 'style',
@@ -15,7 +15,7 @@ const routes = [
     // Document title tag
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
-      title: 'Dashboard',
+      title: 'dashboard',
     },
     path: '/dashboard',
     name: 'dashboard',
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Tables',
+      title: 'tables',
     },
     path: '/tables',
     name: 'tables',
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Forms',
+      title: 'forms',
     },
     path: '/forms',
     name: 'forms',
@@ -39,7 +39,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Brands',
+      title: 'brands',
     },
     path: '/brands',
     name: 'brands',
@@ -47,7 +47,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Driver Card Workflow',
+      title: 'driverCardsWorkflow',
     },
     path: '/driver-card-workflow',
     name: 'driver-card-workflow',
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Profile',
+      title: 'profile',
     },
     path: '/profile',
     name: 'profile',
@@ -63,7 +63,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Ui',
+      title: 'ui',
     },
     path: '/ui',
     name: 'ui',
@@ -71,7 +71,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Responsive layout',
+      title: 'responsiveLayout',
     },
     path: '/responsive',
     name: 'responsive',
@@ -79,7 +79,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Login',
+      title: 'login',
     },
     path: '/login',
     name: 'login',
@@ -87,7 +87,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Error',
+      title: 'error',
     },
     path: '/error',
     name: 'error',

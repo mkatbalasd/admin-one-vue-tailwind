@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import i18n from './i18n'
 
 import App from './App.vue'
 import router from './router'
@@ -11,7 +12,7 @@ import './css/main.css'
 const pinia = createPinia()
 
 // Create Vue app
-createApp(App).use(router).use(pinia).mount('#app')
+createApp(App).use(router).use(pinia).use(i18n).mount('#app')
 
 // Init main store
 const mainStore = useMainStore(pinia)
@@ -38,7 +39,7 @@ const defaultDocumentTitle = 'Admin One Vue 3 Tailwind'
 
 // Set document title from route meta
 router.afterEach((to) => {
-  document.title = to.meta?.title
-    ? `${to.meta.title} — ${defaultDocumentTitle}`
-    : defaultDocumentTitle
+  const titleKey = to.meta?.title
+  const title = titleKey ? i18n.global.t(titleKey) : ''
+  document.title = titleKey ? `${title} — ${defaultDocumentTitle}` : defaultDocumentTitle
 })

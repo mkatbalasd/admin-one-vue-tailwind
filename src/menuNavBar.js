@@ -15,22 +15,22 @@ import {
 export default [
   {
     icon: mdiMenu,
-    label: 'Sample menu',
+    label: 'sampleMenu',
     menu: [
       {
         icon: mdiClockOutline,
-        label: 'Item One',
+        label: 'itemOne',
       },
       {
         icon: mdiCloud,
-        label: 'Item Two',
+        label: 'itemTwo',
       },
       {
         isDivider: true,
       },
       {
         icon: mdiCrop,
-        label: 'Item Last',
+        label: 'itemLast',
       },
     ],
   },
@@ -39,50 +39,50 @@ export default [
     menu: [
       {
         icon: mdiAccount,
-        label: 'My Profile',
+        label: 'myProfile',
         to: '/profile',
       },
       {
         icon: mdiCogOutline,
-        label: 'Settings',
+        label: 'settings',
       },
       {
         icon: mdiEmail,
-        label: 'Messages',
+        label: 'messages',
       },
       {
         isDivider: true,
       },
       {
         icon: mdiLogout,
-        label: 'Log Out',
+        label: 'logOut',
         isLogout: true,
       },
     ],
   },
   {
     icon: mdiThemeLightDark,
-    label: 'Light/Dark',
+    label: 'lightDark',
     isDesktopNoLabel: true,
     isToggleLightDark: true,
   },
   {
     icon: mdiGithub,
-    label: 'GitHub',
+    label: 'github',
     isDesktopNoLabel: true,
     href: 'https://github.com/justboil/admin-one-vue-tailwind',
     target: '_blank',
   },
   {
     icon: mdiReact,
-    label: 'React version',
+    label: 'reactVersion',
     isDesktopNoLabel: true,
     href: 'https://github.com/justboil/admin-one-react-tailwind',
     target: '_blank',
   },
   {
     icon: mdiLogout,
-    label: 'Log out',
+    label: 'logOut',
     isDesktopNoLabel: true,
     isLogout: true,
   },

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { useMainStore } from '@/stores/main'
+import { useI18n } from 'vue-i18n'
 import {
   mdiAccountMultiple,
   mdiCartOutline,
@@ -26,6 +27,8 @@ import SectionBannerStarOnGitHub from '@/components/SectionBannerStarOnGitHub.vu
 
 const chartData = ref(null)
 
+const { t } = useI18n()
+
 const fillChartData = () => {
   chartData.value = chartConfig.sampleChartData()
 }
@@ -44,12 +47,12 @@ const transactionBarItems = computed(() => mainStore.history)
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Overview" main>
+      <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="overview" main>
         <BaseButton
           href="https://github.com/justboil/admin-one-vue-tailwind"
           target="_blank"
           :icon="mdiGithub"
-          label="Star on GitHub"
+          :label="t('starOnGitHub')"
           color="contrast"
           rounded-full
           small
@@ -63,7 +66,7 @@ const transactionBarItems = computed(() => mainStore.history)
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
           :number="512"
-          label="Clients"
+          :label="t('clients')"
         />
         <CardBoxWidget
           trend="12%"
@@ -72,7 +75,7 @@ const transactionBarItems = computed(() => mainStore.history)
           :icon="mdiCartOutline"
           :number="7770"
           prefix="$"
-          label="Sales"
+          :label="t('sales')"
         />
         <CardBoxWidget
           trend="Overflow"
@@ -81,8 +84,8 @@ const transactionBarItems = computed(() => mainStore.history)
           :icon="mdiChartTimelineVariant"
           :number="256"
           suffix="%"
-          label="Performance"
-        />
+          :label="t('performance')"
+      />
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -112,7 +115,7 @@ const transactionBarItems = computed(() => mainStore.history)
 
       <SectionBannerStarOnGitHub class="mt-6 mb-6" />
 
-      <SectionTitleLineWithButton :icon="mdiChartPie" title="Trends overview">
+      <SectionTitleLineWithButton :icon="mdiChartPie" title="trendsOverview">
         <BaseButton :icon="mdiReload" color="whiteDark" @click="fillChartData" />
       </SectionTitleLineWithButton>
 
@@ -122,10 +125,10 @@ const transactionBarItems = computed(() => mainStore.history)
         </div>
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Clients" />
+      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="clients" />
 
       <NotificationBar color="info" :icon="mdiMonitorCellphone">
-        <b>Responsive table.</b> Collapses on mobile
+        <b>{{ t('responsiveTable') }}</b>
       </NotificationBar>
 
       <CardBox has-table>

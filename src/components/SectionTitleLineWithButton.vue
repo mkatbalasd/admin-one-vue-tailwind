@@ -1,6 +1,7 @@
 <script setup>
 import { mdiCog } from '@mdi/js'
 import { useSlots, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import IconRounded from '@/components/IconRounded.vue'
@@ -18,6 +19,7 @@ defineProps({
 })
 
 const hasSlot = computed(() => useSlots().default)
+const { t } = useI18n()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ const hasSlot = computed(() => useSlots().default)
       <IconRounded v-if="icon && main" :icon="icon" color="light" class="mr-3" bg />
       <BaseIcon v-else-if="icon" :path="icon" class="mr-2" size="20" />
       <h1 :class="main ? 'text-3xl' : 'text-2xl'" class="leading-tight">
-        {{ title }}
+        {{ t(title) }}
       </h1>
     </div>
     <slot v-if="hasSlot" />
