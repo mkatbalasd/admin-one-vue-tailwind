@@ -1,4 +1,5 @@
 /* eslint-env node */
+/* global require, module */
 
 const plugin = require("tailwindcss/plugin");
 

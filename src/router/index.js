@@ -39,6 +39,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'Brands',
+    },
+    path: '/brands',
+    name: 'brands',
+    component: () => import('@/views/BrandsView.vue'),
+  },
+  {
+    meta: {
       title: 'Profile',
     },
     path: '/profile',

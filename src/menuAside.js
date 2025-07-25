@@ -30,6 +30,11 @@ export default [
     icon: mdiSquareEditOutline,
   },
   {
+    to: '/brands',
+    label: 'Brands',
+    icon: mdiTable,
+  },
+  {
     to: '/ui',
     label: 'UI',
     icon: mdiTelevisionGuide,
