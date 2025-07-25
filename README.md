@@ -108,6 +108,22 @@ Get code & install. Then `dev` or `build` with [Vite](#vite-builds) or integrate
 
 `cd` to project's dir and run `npm install`
 
+Copy the provided `.env.example` files to `.env`:
+
+```bash
+cp .env.example .env
+cp backend/.env.example backend/.env
+```
+
+Install server dependencies and start the backend API:
+
+```bash
+cd backend && npm install
+npm start
+```
+
+The default API endpoint defined in `.env.example` is `http://localhost:3000/api`.
+
 ### Vite builds
 
 [Vite](https://vitejs.dev) is next Generation Frontend Tooling featuring unbundled web-development
