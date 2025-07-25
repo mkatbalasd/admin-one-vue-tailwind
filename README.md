@@ -20,7 +20,6 @@
 * **Pinia** state library (official Vuex 5) &mdash; [Info](https://pinia.vuejs.org/)
 * **Dark mode**
 * **Styled** scrollbars
-* Uses [tailwindcss-logical](https://www.npmjs.com/package/tailwindcss-logical)
 * SPA with **Router**
 * **Production CSS** is only **&thickapprox;38kb**
 * Reusable components
