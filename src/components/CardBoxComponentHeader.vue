@@ -26,7 +26,7 @@ const buttonClick = (event) => {
 <template>
   <header class="flex items-stretch border-b border-gray-100 dark:border-slate-800">
     <div class="flex items-center py-3 grow font-bold" :class="[icon ? 'px-4' : 'px-6']">
-      <BaseIcon v-if="icon" :path="icon" class="me-3" />
+      <BaseIcon v-if="icon" :path="icon" class="mr-3" />
       {{ title }}
     </div>
     <button
