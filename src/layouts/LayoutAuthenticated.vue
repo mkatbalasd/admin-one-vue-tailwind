@@ -13,7 +13,7 @@ import NavBarItemPlain from '@/components/NavBarItemPlain.vue'
 import AsideMenu from '@/components/AsideMenu.vue'
 import FooterBar from '@/components/FooterBar.vue'
 
-const layoutAsidePadding = 'xl:pl-60'
+const layoutAsidePadding = 'xl:ps-60'
 
 const darkModeStore = useDarkModeStore()
 
@@ -46,12 +46,12 @@ const menuClick = (event, item) => {
     }"
   >
     <div
-      :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
+      :class="[layoutAsidePadding, { 'ms-60 lg:ms-0': isAsideMobileExpanded }]"
       class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
     >
       <NavBar
         :menu="menuNavBar"
-        :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
+        :class="[layoutAsidePadding, { 'ms-60 lg:ms-0': isAsideMobileExpanded }]"
         @menu-click="menuClick"
       >
         <NavBarItemPlain
