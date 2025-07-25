@@ -1,44 +1,6 @@
 import { createI18n } from 'vue-i18n'
 
 const messages = {
-  en: {
-    dashboard: 'Dashboard',
-    tables: 'Tables',
-    forms: 'Forms',
-    brands: 'Brands',
-    driverCards: 'Driver Cards',
-    ui: 'UI',
-    responsive: 'Responsive',
-    styles: 'Styles',
-    profile: 'Profile',
-    login: 'Login',
-    error: 'Error',
-    dropdown: 'Dropdown',
-    itemOne: 'Item One',
-    itemTwo: 'Item Two',
-    itemLast: 'Item Last',
-    sampleMenu: 'Sample menu',
-    myProfile: 'My Profile',
-    settings: 'Settings',
-    messages: 'Messages',
-    logOut: 'Log Out',
-    lightDark: 'Light/Dark',
-    github: 'GitHub',
-    reactVersion: 'React version',
-    search: 'Search (ctrl+k)',
-    getMore: 'Get more with',
-    premiumVersion: 'Premium version',
-    overview: 'Overview',
-    clients: 'Clients',
-    sales: 'Sales',
-    performance: 'Performance',
-    trendsOverview: 'Trends overview',
-    starOnGitHub: 'Star on GitHub',
-    responsiveTable: 'Responsive table. Collapses on mobile',
-    selectStyle: 'Select style',
-    driverCardsWorkflow: 'Driver Card Workflow',
-    responsiveLayout: 'Responsive layout'
-  },
   ar: {
     dashboard: '\u0644\u0648\u062D\u0629 \u0627\u0644\u062A\u062D\u0643\u0645',
     tables: '\u0627\u0644\u062C\u062F\u0627\u0648\u0644',
@@ -81,7 +43,7 @@ const messages = {
 
 export default createI18n({
   legacy: false,
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: 'ar',
+  fallbackLocale: 'ar',
   messages
 })
