@@ -35,6 +35,11 @@ export default [
     icon: mdiTable,
   },
   {
+    to: '/driver-card-workflow',
+    label: 'Driver Cards',
+    icon: mdiTable,
+  },
+  {
     to: '/ui',
     label: 'UI',
     icon: mdiTelevisionGuide,
