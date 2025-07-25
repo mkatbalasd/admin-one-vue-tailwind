@@ -6,7 +6,7 @@ const { locale } = useI18n()
 </script>
 
 <template>
-  <div :dir="locale === 'ar' ? 'rtl' : 'ltr'">
+  <div>
     <RouterView />
   </div>
 </template>
