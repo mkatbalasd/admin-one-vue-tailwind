@@ -121,7 +121,7 @@ Install server dependencies and start the backend API:
 
 ```bash
 cd backend && npm install
-npm start
+npm run dev
 ```
 
 The default API endpoint defined in `.env.example` is `http://localhost:3000/api`.
