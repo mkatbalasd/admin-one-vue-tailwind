@@ -2,8 +2,8 @@
 import { onMounted, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import BaseButton from '@/components/BaseButton.vue'
-import BaseButtons from '@/components/BaseButtons.vue'
 import BaseLevel from '@/components/BaseLevel.vue'
+import BasePagination from '@/components/BasePagination.vue'
 import { useDriverCardsStore } from '@/stores/driverCards'
 
 const router = useRouter()
@@ -30,15 +30,6 @@ const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 
 const currentPageHuman = computed(() => currentPage.value + 1)
 
-const pagesList = computed(() => {
-  const pagesList = []
-
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
-
-  return pagesList
-})
 </script>
 
 <template>
@@ -77,17 +68,7 @@ const pagesList = computed(() => {
   </table>
   <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
     <BaseLevel>
-      <BaseButtons>
-        <BaseButton
-          v-for="page in pagesList"
-          :key="page"
-          :active="page === currentPage"
-          :label="page + 1"
-          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
-          small
-          @click="currentPage = page"
-        />
-      </BaseButtons>
+      <BasePagination v-model="currentPage" :total="numPages" />
       <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
     </BaseLevel>
   </div>
