@@ -41,6 +41,6 @@ const inputType = computed(() => (props.type === 'radio' ? 'radio' : 'checkbox')
   <label :class="type">
     <input v-model="computedValue" :type="inputType" :name="name" :value="inputValue" />
     <span class="check" />
-    <span class="ps-2">{{ label }}</span>
+    <span class="pl-2">{{ label }}</span>
   </label>
 </template>
