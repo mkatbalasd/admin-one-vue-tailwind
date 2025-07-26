@@ -40,6 +40,21 @@ export default [
     icon: mdiTable,
   },
   {
+    to: '/facilities',
+    label: 'facilities',
+    icon: mdiTable,
+  },
+  {
+    to: '/drivers',
+    label: 'drivers',
+    icon: mdiTable,
+  },
+  {
+    to: '/vehicles',
+    label: 'vehicles',
+    icon: mdiTable,
+  },
+  {
     to: '/ui',
     label: 'ui',
     icon: mdiTelevisionGuide,

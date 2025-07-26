@@ -63,6 +63,30 @@ const routes = [
   },
   {
     meta: {
+      title: 'facilities',
+    },
+    path: '/facilities',
+    name: 'facilities',
+    component: () => import('@/views/FacilitiesView.vue'),
+  },
+  {
+    meta: {
+      title: 'drivers',
+    },
+    path: '/drivers',
+    name: 'drivers',
+    component: () => import('@/views/DriversView.vue'),
+  },
+  {
+    meta: {
+      title: 'vehicles',
+    },
+    path: '/vehicles',
+    name: 'vehicles',
+    component: () => import('@/views/VehiclesView.vue'),
+  },
+  {
+    meta: {
       title: 'profile',
     },
     path: '/profile',
