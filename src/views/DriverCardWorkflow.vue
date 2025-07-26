@@ -11,6 +11,8 @@ import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.
 import CardBox from '@/components/CardBox.vue'
 import FormField from '@/components/FormField.vue'
 import FormControl from '@/components/FormControl.vue'
+import HijriDatePicker from '@/components/HijriDatePicker.vue'
+import moment from 'moment-hijri'
 import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import CardBoxModal from '@/components/CardBoxModal.vue'
@@ -65,9 +67,8 @@ watch(
   () => cardForm.value.IssueDate,
   (val) => {
     if (val) {
-      const d = new Date(val)
-      d.setFullYear(d.getFullYear() + 1)
-      cardForm.value.ExpirationDate = d.toISOString().slice(0, 10)
+      const d = moment(val, 'iYYYY-iMM-iDD').add(1, 'iYear')
+      cardForm.value.ExpirationDate = d.format('iYYYY-iMM-iDD')
     } else {
       cardForm.value.ExpirationDate = ''
     }
@@ -211,10 +212,10 @@ async function saveCard() {
           <FormControl v-model="cardForm.CardType" />
         </FormField>
         <FormField label="Issue Date">
-          <FormControl v-model="cardForm.IssueDate" type="date" />
+          <HijriDatePicker v-model="cardForm.IssueDate" />
         </FormField>
         <FormField label="Expiration Date">
-          <FormControl v-model="cardForm.ExpirationDate" type="date" />
+          <HijriDatePicker v-model="cardForm.ExpirationDate" />
         </FormField>
         <template #footer>
           <BaseButtons>
@@ -256,10 +257,10 @@ async function saveCard() {
         <FormControl v-model="newFacility.LicenseCityEn" />
       </FormField>
       <FormField label="License Issue Date">
-        <FormControl v-model="newFacility.LicenseIssueDate" type="date" />
+        <HijriDatePicker v-model="newFacility.LicenseIssueDate" />
       </FormField>
       <FormField label="License Expiration Date">
-        <FormControl v-model="newFacility.LicenseExpirationDate" type="date" />
+        <HijriDatePicker v-model="newFacility.LicenseExpirationDate" />
       </FormField>
     </CardBoxModal>
 
