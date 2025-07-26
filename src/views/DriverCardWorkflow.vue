@@ -1,5 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { getDriverCards } from '@/api/driverCards'
+import { getDrivers } from '@/api/drivers'
+import { getFacilities } from '@/api/facilities'
 import { mdiIdCard, mdiDomain, mdiAccount } from '@mdi/js'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionMain from '@/components/SectionMain.vue'
@@ -11,6 +15,8 @@ import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import CardBoxModal from '@/components/CardBoxModal.vue'
 import { useDriverCardWorkflowStore } from '@/stores/driverCardWorkflow'
+
+const route = useRoute()
 
 const store = useDriverCardWorkflowStore()
 
@@ -34,6 +40,27 @@ const cardForm = ref({
   addingDate: '',
   LastUpdate: '',
   userID: '',
+})
+
+onMounted(async () => {
+  const id = route.query.id || route.params.id
+  const token = route.query.token || route.params.token
+  if (id || token) {
+    const { data: cards } = await getDriverCards()
+    const card = cards.find((c) => (id && c.ID == id) || (token && c.token === token))
+    if (card) {
+      store.card = card
+      const [{ data: drivers }, { data: facilities }] = await Promise.all([
+        getDrivers(),
+        getFacilities(),
+      ])
+      store.driver = drivers.find((d) => d.DriverID === card.DriverID) || null
+      store.facility = facilities.find((f) => f.FacilityID === card.FacilityID) || null
+      facilityIdInput.value = store.facility?.IdentityNumber || ''
+      driverIdInput.value = store.driver?.IdentityNumber || ''
+      populateCard()
+    }
+  }
 })
 
 async function checkFacility() {

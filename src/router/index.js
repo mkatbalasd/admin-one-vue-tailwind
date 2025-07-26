@@ -47,6 +47,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'driverCards',
+    },
+    path: '/driver-cards',
+    name: 'driver-cards',
+    component: () => import('@/views/DriverCardsView.vue'),
+  },
+  {
+    meta: {
       title: 'driverCardsWorkflow',
     },
     path: '/driver-card-workflow',

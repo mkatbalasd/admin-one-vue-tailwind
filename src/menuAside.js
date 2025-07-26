@@ -35,7 +35,7 @@ export default [
     icon: mdiTable,
   },
   {
-    to: '/driver-card-workflow',
+    to: '/driver-cards',
     label: 'driverCards',
     icon: mdiTable,
   },
