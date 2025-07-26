@@ -68,8 +68,8 @@ const pillText = computed(() => props.text ?? `${props.progress}%`)
   <CardBox class="mb-6 last:mb-0">
     <BaseLevel>
       <BaseLevel type="justify-start">
-        <UserAvatar class="w-12 h-12 mr-6" :username="name" />
-        <div class="text-center md:text-left overflow-hidden">
+        <UserAvatar class="w-12 h-12 me-6" :username="name" />
+        <div class="text-center md:text-start overflow-hidden">
           <h4 class="text-xl text-ellipsis">
             {{ name }}
           </h4>

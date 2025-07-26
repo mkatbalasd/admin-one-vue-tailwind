@@ -47,9 +47,9 @@ const hasRightSlot = computed(() => slots.right)
           w="w-10 md:w-5"
           h="h-10 md:h-5"
           size="24"
-          class="md:mr-2"
+          class="md:me-2"
         />
-        <span class="text-center md:text-left md:py-2"><slot /></span>
+        <span class="text-center md:text-start md:py-2"><slot /></span>
       </div>
       <slot v-if="hasRightSlot" name="right" />
       <BaseButton v-else :icon="mdiClose" small rounded-full color="white" @click="dismiss" />
