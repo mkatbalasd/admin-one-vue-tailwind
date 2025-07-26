@@ -44,6 +44,6 @@
 
   td:before {
     content: attr(data-label);
-    @apply font-semibold pr-3 text-left lg:hidden;
+    @apply font-semibold pe-3 text-left lg:hidden;
   }
 }

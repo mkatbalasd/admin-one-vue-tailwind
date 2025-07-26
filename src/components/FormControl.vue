@@ -69,7 +69,7 @@ const inputElClass = computed(() => {
   ]
 
   if (props.icon) {
-    base.push('pl-10')
+    base.push('ps-10')
   }
 
   return base
