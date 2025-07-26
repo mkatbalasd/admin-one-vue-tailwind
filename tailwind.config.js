@@ -2,7 +2,7 @@
 /* global require, module */
 
 const plugin = require("tailwindcss/plugin");
-const logical = require("tailwindcss-logical");
+const rtl = require('tailwindcss-rtl');
 
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx,css}"],
@@ -44,9 +44,9 @@ module.exports = {
     },
   },
   plugins: [
-    logical,
     require("@tailwindcss/forms"),
     require("tailwindcss-dir")(),
+    rtl(),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {
