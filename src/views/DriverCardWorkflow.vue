@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getDriverCards } from '@/api/driverCards'
 import { getDrivers } from '@/api/drivers'
@@ -15,10 +15,18 @@ import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import CardBoxModal from '@/components/CardBoxModal.vue'
 import { useDriverCardWorkflowStore } from '@/stores/driverCardWorkflow'
+import { useLicenseTypesStore } from '@/stores/licenseTypes'
 
 const route = useRoute()
 
 const store = useDriverCardWorkflowStore()
+const licenseTypeStore = useLicenseTypesStore()
+const licenseTypeOptions = computed(() =>
+  licenseTypeStore.licenseTypes.map((l) => ({
+    id: l.LicenseTypeID,
+    label: `${l.LicenseTypeNameAR} - ${l.LicenseTypeNameEN}`,
+  }))
+)
 
 const facilityIdInput = ref('')
 const driverIdInput = ref('')
@@ -26,7 +34,17 @@ const driverIdInput = ref('')
 const modalFacility = ref(false)
 const modalDriver = ref(false)
 
-const newFacility = ref({ IdentityNumber: '', Name: '' })
+const newFacility = ref({
+  IdentityNumber: '',
+  Name: '',
+  EnglishName: '',
+  LicenseNumber: '',
+  LicenseTypeID: null,
+  LicenseCity: '',
+  LicenseCityEn: '',
+  LicenseIssueDate: '',
+  LicenseExpirationDate: '',
+})
 const newDriver = ref({ FirstName: '', LastName: '', IdentityNumber: '', FacilityID: '' })
 
 const cardForm = ref({
@@ -43,6 +61,7 @@ const cardForm = ref({
 })
 
 onMounted(async () => {
+  licenseTypeStore.fetchLicenseTypes()
   const id = route.query.id || route.params.id
   const token = route.query.token || route.params.token
   if (id || token) {
@@ -66,7 +85,17 @@ onMounted(async () => {
 async function checkFacility() {
   await store.findFacility(facilityIdInput.value)
   if (!store.facility) {
-    newFacility.value.IdentityNumber = facilityIdInput.value
+    newFacility.value = {
+      IdentityNumber: facilityIdInput.value,
+      Name: '',
+      EnglishName: '',
+      LicenseNumber: '',
+      LicenseTypeID: null,
+      LicenseCity: '',
+      LicenseCityEn: '',
+      LicenseIssueDate: '',
+      LicenseExpirationDate: '',
+    }
     modalFacility.value = true
   }
 }
@@ -177,6 +206,30 @@ async function saveCard() {
       </FormField>
       <FormField label="Name">
         <FormControl v-model="newFacility.Name" />
+      </FormField>
+      <FormField label="English Name">
+        <FormControl v-model="newFacility.EnglishName" />
+      </FormField>
+      <FormField label="License Number">
+        <FormControl v-model="newFacility.LicenseNumber" />
+      </FormField>
+      <FormField label="License Type">
+        <FormControl
+          v-model="newFacility.LicenseTypeID"
+          :options="licenseTypeOptions"
+        />
+      </FormField>
+      <FormField label="License City (AR)">
+        <FormControl v-model="newFacility.LicenseCity" />
+      </FormField>
+      <FormField label="License City (EN)">
+        <FormControl v-model="newFacility.LicenseCityEn" />
+      </FormField>
+      <FormField label="License Issue Date">
+        <FormControl v-model="newFacility.LicenseIssueDate" type="date" />
+      </FormField>
+      <FormField label="License Expiration Date">
+        <FormControl v-model="newFacility.LicenseExpirationDate" type="date" />
       </FormField>
     </CardBoxModal>
 
