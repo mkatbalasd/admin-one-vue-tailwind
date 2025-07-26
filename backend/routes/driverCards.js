@@ -32,13 +32,16 @@ router.get('/', async (req, res) => {
 
 // Add driver card
 router.post('/', async (req, res) => {
-  const { CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID } = req.body
+  let { CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID } = req.body
   try {
     if (FacilityID && !(await facilityExists(FacilityID))) return res.status(400).json({ error: 'Invalid FacilityID' })
     if (DriverID && !(await driverExists(DriverID))) return res.status(400).json({ error: 'Invalid DriverID' })
     if (Supplier && !(await supplierExists(Supplier))) return res.status(400).json({ error: 'Invalid Supplier' })
     const token = await generateCustomUUID()
     const CardNumber = await generateCardNumber(FacilityID)
+    const today = new Date().toISOString().split('T')[0]
+    if (!addingDate) addingDate = today
+    if (!LastUpdate) LastUpdate = today
     await pool.query(
       'INSERT INTO OPC_DriverCard (token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID],
@@ -53,12 +56,13 @@ router.post('/', async (req, res) => {
 // Update driver card
 router.put('/:id', async (req, res) => {
   const { id } = req.params
-  const { CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID } = req.body
+  const { CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, userID } = req.body
   try {
     if (FacilityID && !(await facilityExists(FacilityID))) return res.status(400).json({ error: 'Invalid FacilityID' })
     if (DriverID && !(await driverExists(DriverID))) return res.status(400).json({ error: 'Invalid DriverID' })
     if (Supplier && !(await supplierExists(Supplier))) return res.status(400).json({ error: 'Invalid Supplier' })
-    await pool.query('UPDATE OPC_DriverCard SET CardNumber=?, CardType=?, FacilityID=?, DriverID=?, IssueDate=?, ExpirationDate=?, Supplier=?, addingDate=?, LastUpdate=?, userID=? WHERE ID=?', [CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID, id])
+    const today = new Date().toISOString().split('T')[0]
+    await pool.query('UPDATE OPC_DriverCard SET CardNumber=?, CardType=?, FacilityID=?, DriverID=?, IssueDate=?, ExpirationDate=?, Supplier=?, LastUpdate=?, userID=? WHERE ID=?', [CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, today, userID, id])
     const [rows] = await pool.query('SELECT * FROM OPC_DriverCard WHERE ID = ?', [id])
     res.json(rows[0])
   } catch (err) {

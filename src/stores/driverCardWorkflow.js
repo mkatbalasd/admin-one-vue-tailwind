@@ -41,11 +41,14 @@ export const useDriverCardWorkflowStore = defineStore('driverCardWorkflow', () =
   }
 
   async function saveCard(payload) {
+    const dataPayload = { ...payload }
+    delete dataPayload.addingDate
+    delete dataPayload.LastUpdate
     if (card.value) {
-      const { data } = await updateDriverCard(card.value.ID, payload)
+      const { data } = await updateDriverCard(card.value.ID, dataPayload)
       card.value = data
     } else {
-      const { data } = await addDriverCard(payload)
+      const { data } = await addDriverCard(dataPayload)
       card.value = data
     }
     return card.value
