@@ -24,7 +24,8 @@ module.exports = {
         modal: "calc(100vh - 160px)",
       },
       transitionProperty: {
-        position: "right, left, top, bottom, margin, padding",
+        position:
+          "inset-inline-start, inset-inline-end, top, bottom, margin-inline-start, margin-inline-end, padding-inline-start, padding-inline-end",
         textColor: "color",
       },
       keyframes: {
