@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     if (DriverID && !(await driverExists(DriverID))) return res.status(400).json({ error: 'Invalid DriverID' })
     if (Supplier && !(await supplierExists(Supplier))) return res.status(400).json({ error: 'Invalid Supplier' })
     const token = await generateCustomUUID()
-    const CardNumber = await generateCardNumber()
+    const CardNumber = await generateCardNumber(FacilityID)
     const [result] = await pool.query('INSERT INTO OPC_Card (token, CardNumber, FacilityID, VehicleID, DriverID, IssueDate, ExpirationDate, RenewalDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [token, CardNumber, FacilityID, VehicleID, DriverID, IssueDate, ExpirationDate, RenewalDate, Supplier, addingDate, LastUpdate, userID])
     const [row] = await pool.query('SELECT * FROM OPC_Card WHERE ID = ?', [result.insertId])
     res.status(201).json(row[0])
