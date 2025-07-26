@@ -62,15 +62,15 @@ const icon = computed(() => {
   <CardBox class="mb-6 last:mb-0">
     <BaseLevel>
       <BaseLevel type="justify-start">
-        <IconRounded :icon="icon.icon" :color="icon.type" class="md:mr-6" />
-        <div class="text-center space-y-1 md:text-left md:mr-6">
+        <IconRounded :icon="icon.icon" :color="icon.type" class="md:me-6" />
+        <div class="text-center space-y-1 md:text-start md:me-6">
           <h4 class="text-xl">${{ amount }}</h4>
           <p class="text-gray-500 dark:text-slate-400">
             <b>{{ date }}</b> via {{ business }}
           </p>
         </div>
       </BaseLevel>
-      <div class="text-center md:text-right space-y-2">
+      <div class="text-center md:text-end space-y-2">
         <p class="text-sm text-gray-500">
           {{ name }}
         </p>

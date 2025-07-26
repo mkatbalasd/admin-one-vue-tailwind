@@ -2,7 +2,7 @@
   @apply inline-flex items-center cursor-pointer relative;
 
   & input[type='checkbox'] {
-    @apply absolute left-0 opacity-0 -z-1;
+    @apply absolute start-0 opacity-0 -z-1;
   }
 
   & input[type='checkbox'] + .check {
@@ -38,7 +38,7 @@
   @apply inline-flex items-center cursor-pointer relative;
 
   & input[type='radio'] {
-    @apply absolute left-0 opacity-0 -z-1;
+    @apply absolute start-0 opacity-0 -z-1;
   }
 
   & input[type='radio'] + .check {
@@ -74,7 +74,7 @@
   @apply inline-flex items-center cursor-pointer relative;
 
   & input[type='checkbox'] {
-    @apply absolute left-0 opacity-0 -z-1;
+    @apply absolute start-0 opacity-0 -z-1;
   }
 
   & input[type='checkbox'] + .check {
