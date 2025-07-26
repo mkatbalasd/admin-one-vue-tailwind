@@ -5,7 +5,7 @@ import { getDrivers } from '@/api/drivers'
 import { getFacilities } from '@/api/facilities'
 
 export const useDriverCardsStore = defineStore('driverCards', () => {
-  const driverCards = ref([])
+  const cards = ref([])
 
   async function mergeCardData(rawCards) {
     try {
@@ -30,7 +30,7 @@ export const useDriverCardsStore = defineStore('driverCards', () => {
   async function fetchDriverCards() {
     try {
       const { data } = await getDriverCards()
-      driverCards.value = await mergeCardData(data)
+      cards.value = await mergeCardData(data)
     } catch (err) {
       console.error(err)
     }
@@ -40,7 +40,7 @@ export const useDriverCardsStore = defineStore('driverCards', () => {
     try {
       const { data } = await addDriverCard(payload)
       const [card] = await mergeCardData([data])
-      driverCards.value.push(card)
+      cards.value.push(card)
     } catch (err) {
       console.error(err)
     }
@@ -50,16 +50,16 @@ export const useDriverCardsStore = defineStore('driverCards', () => {
     try {
       const { data } = await apiUpdate(id, payload)
       const [card] = await mergeCardData([data])
-      const index = driverCards.value.findIndex((c) => c.ID === id)
+      const index = cards.value.findIndex((c) => c.ID === id)
       if (index !== -1) {
-        driverCards.value[index] = card
+        cards.value[index] = card
       } else {
-        driverCards.value.push(card)
+        cards.value.push(card)
       }
     } catch (err) {
       console.error(err)
     }
   }
 
-  return { driverCards, fetchDriverCards, createDriverCard, updateDriverCard }
+  return { cards, fetchDriverCards, createDriverCard, updateDriverCard }
 })

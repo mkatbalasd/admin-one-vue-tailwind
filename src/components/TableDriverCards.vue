@@ -12,7 +12,7 @@ onMounted(() => {
 })
 
 function editCard(card) {
-  router.push({ name: 'driver-card-workflow', query: { cardId: card.ID } })
+  router.push({ name: 'driver-card-workflow', query: { id: card.ID } })
 }
 </script>
 
@@ -20,16 +20,18 @@ function editCard(card) {
   <table>
     <thead>
       <tr>
+        <th>ID</th>
         <th>Card Number</th>
         <th>Driver</th>
-        <th>Card Type</th>
         <th>Facility</th>
         <th>Issue Date</th>
+        <th>Expiration Date</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="card in store.driverCards" :key="card.ID">
+      <tr v-for="card in store.cards" :key="card.ID">
+        <td>{{ card.ID }}</td>
         <td>
           <a
             :href="`https://s.mnaseb.com/h/OPcard/driver.php?token=${card.token}`"
@@ -39,9 +41,9 @@ function editCard(card) {
           >
         </td>
         <td>{{ card.driverName }}</td>
-        <td>{{ card.CardType }}</td>
         <td>{{ card.facilityName }}</td>
         <td>{{ card.IssueDate }}</td>
+        <td>{{ card.ExpirationDate }}</td>
         <td>
           <BaseButton color="info" label="Edit" small @click="editCard(card)" />
         </td>
