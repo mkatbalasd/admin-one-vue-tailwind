@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
+import BaseLevel from '@/components/BaseLevel.vue'
+import BasePagination from '@/components/BasePagination.vue'
 import { useVehiclesStore } from '@/stores/vehicles'
 
 const emit = defineEmits(['edit'])
@@ -10,6 +12,22 @@ const store = useVehiclesStore()
 onMounted(() => {
   store.fetchVehicles()
 })
+
+const perPage = ref(10)
+const currentPage = ref(0)
+
+const items = computed(() => store.vehicles)
+
+const itemsPaginated = computed(() =>
+  items.value.slice(
+    perPage.value * currentPage.value,
+    perPage.value * (currentPage.value + 1),
+  ),
+)
+
+const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+
+const currentPageHuman = computed(() => currentPage.value + 1)
 
 function editVehicle(vehicle) {
   emit('edit', vehicle)
@@ -28,7 +46,7 @@ function editVehicle(vehicle) {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="vehicle in store.vehicles" :key="vehicle.ID">
+      <tr v-for="vehicle in itemsPaginated" :key="vehicle.ID">
         <td>{{ vehicle.ID }}</td>
         <td>{{ vehicle.PlateNumber }}</td>
         <td>{{ vehicle.SerialNumber }}</td>
@@ -39,4 +57,10 @@ function editVehicle(vehicle) {
       </tr>
     </tbody>
   </table>
+  <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
+    <BaseLevel>
+      <BasePagination v-model="currentPage" :total="numPages" />
+      <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
+    </BaseLevel>
+  </div>
 </template>
