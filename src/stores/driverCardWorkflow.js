@@ -44,13 +44,13 @@ export const useDriverCardWorkflowStore = defineStore('driverCardWorkflow', () =
     const dataPayload = { ...payload }
     delete dataPayload.addingDate
     delete dataPayload.LastUpdate
-    if (card.value) {
-      const { data } = await updateDriverCard(card.value.ID, dataPayload)
-      card.value = data
+    let response
+    if (card.value && card.value.ID) {
+      response = await updateDriverCard(card.value.ID, dataPayload)
     } else {
-      const { data } = await addDriverCard(dataPayload)
-      card.value = data
+      response = await addDriverCard(dataPayload)
     }
+    card.value = response.data
     return card.value
   }
 
