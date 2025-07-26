@@ -42,11 +42,12 @@ router.post('/', async (req, res) => {
     const today = new Date().toISOString().split('T')[0]
     if (!addingDate) addingDate = today
     if (!LastUpdate) LastUpdate = today
-    await pool.query(
+    const [result] = await pool.query(
       'INSERT INTO OPC_DriverCard (token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID],
     )
-    res.status(201).json({ CardNumber })
+    const [row] = await pool.query('SELECT * FROM OPC_DriverCard WHERE ID = ?', [result.insertId])
+    res.status(201).json(row[0])
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Database error' })

@@ -150,7 +150,8 @@ async function generateCard() {
     FacilityID: store.facility?.FacilityID || '',
     DriverID: store.driver?.DriverID || '',
   }
-  await store.saveCard(payload)
+  const saved = await store.saveCard(payload)
+  store.card = saved
   cardForm.value.CardNumber = store.card?.CardNumber || ''
 }
 
