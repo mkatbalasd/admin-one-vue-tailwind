@@ -38,7 +38,10 @@ export const useDriverCardsStore = defineStore('driverCards', () => {
 
   async function createDriverCard(payload) {
     try {
-      const { data } = await addDriverCard(payload)
+      const dataPayload = { ...payload }
+      delete dataPayload.addingDate
+      delete dataPayload.LastUpdate
+      const { data } = await addDriverCard(dataPayload)
       const [card] = await mergeCardData([data])
       cards.value.push(card)
     } catch (err) {
@@ -48,7 +51,10 @@ export const useDriverCardsStore = defineStore('driverCards', () => {
 
   async function updateDriverCard(id, payload) {
     try {
-      const { data } = await apiUpdate(id, payload)
+      const dataPayload = { ...payload }
+      delete dataPayload.addingDate
+      delete dataPayload.LastUpdate
+      const { data } = await apiUpdate(id, dataPayload)
       const [card] = await mergeCardData([data])
       const index = cards.value.findIndex((c) => c.ID === id)
       if (index !== -1) {
