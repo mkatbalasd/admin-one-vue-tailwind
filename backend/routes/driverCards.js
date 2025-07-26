@@ -38,10 +38,12 @@ router.post('/', async (req, res) => {
     if (DriverID && !(await driverExists(DriverID))) return res.status(400).json({ error: 'Invalid DriverID' })
     if (Supplier && !(await supplierExists(Supplier))) return res.status(400).json({ error: 'Invalid Supplier' })
     const token = await generateCustomUUID()
-    const CardNumber = await generateCardNumber()
-    const [result] = await pool.query('INSERT INTO OPC_DriverCard (token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID])
-    const [row] = await pool.query('SELECT * FROM OPC_DriverCard WHERE ID = ?', [result.insertId])
-    res.status(201).json(row[0])
+    const CardNumber = await generateCardNumber(FacilityID)
+    await pool.query(
+      'INSERT INTO OPC_DriverCard (token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [token, CardNumber, CardType, FacilityID, DriverID, IssueDate, ExpirationDate, Supplier, addingDate, LastUpdate, userID],
+    )
+    res.status(201).json({ CardNumber })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Database error' })
