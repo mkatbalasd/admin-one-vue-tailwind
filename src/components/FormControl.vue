@@ -48,6 +48,7 @@ const props = defineProps({
   borderless: Boolean,
   transparent: Boolean,
   ctrlKFocus: Boolean,
+  readonly: Boolean,
 })
 
 const emit = defineEmits(['update:modelValue', 'setRef'])
@@ -145,6 +146,7 @@ if (props.ctrlKFocus) {
       :maxlength="maxlength"
       :placeholder="placeholder"
       :required="required"
+      :readonly="readonly"
     />
     <input
       v-else
@@ -156,6 +158,7 @@ if (props.ctrlKFocus) {
       :inputmode="inputmode"
       :autocomplete="autocomplete"
       :required="required"
+      :readonly="readonly"
       :placeholder="placeholder"
       :type="computedType"
       :class="inputElClass"
