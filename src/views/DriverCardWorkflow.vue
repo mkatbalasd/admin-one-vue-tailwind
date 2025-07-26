@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { getDriverCards } from '@/api/driverCards'
 import { getDrivers } from '@/api/drivers'
 import { getFacilities } from '@/api/facilities'
@@ -18,6 +18,7 @@ import { useDriverCardWorkflowStore } from '@/stores/driverCardWorkflow'
 import { useLicenseTypesStore } from '@/stores/licenseTypes'
 
 const route = useRoute()
+const router = useRouter()
 
 const store = useDriverCardWorkflowStore()
 const licenseTypeStore = useLicenseTypesStore()
@@ -59,6 +60,19 @@ const cardForm = ref({
   LastUpdate: '',
   userID: '',
 })
+
+watch(
+  () => cardForm.value.IssueDate,
+  (val) => {
+    if (val) {
+      const d = new Date(val)
+      d.setFullYear(d.getFullYear() + 1)
+      cardForm.value.ExpirationDate = d.toISOString().slice(0, 10)
+    } else {
+      cardForm.value.ExpirationDate = ''
+    }
+  },
+)
 
 onMounted(async () => {
   licenseTypeStore.fetchLicenseTypes()
@@ -113,6 +127,9 @@ async function checkDriver() {
     modalDriver.value = true
   } else {
     await store.findDriverCard()
+    if (!store.card) {
+      await generateCard()
+    }
     populateCard()
   }
 }
@@ -121,7 +138,19 @@ async function confirmDriver() {
   await store.createDriver(newDriver.value)
   modalDriver.value = false
   await store.findDriverCard()
+  if (!store.card) {
+    await generateCard()
+  }
   populateCard()
+}
+
+async function generateCard() {
+  const payload = {
+    FacilityID: store.facility?.FacilityID || '',
+    DriverID: store.driver?.DriverID || '',
+  }
+  await store.saveCard(payload)
+  cardForm.value.CardNumber = store.card?.CardNumber || ''
 }
 
 function populateCard() {
@@ -143,6 +172,7 @@ async function saveCard() {
   cardForm.value.FacilityID = store.facility?.FacilityID || ''
   cardForm.value.DriverID = store.driver?.DriverID || ''
   await store.saveCard(cardForm.value)
+  router.push({ name: 'driver-cards' })
 }
 </script>
 
@@ -175,7 +205,7 @@ async function saveCard() {
 
       <CardBox v-if="store.driver" class="mb-6" is-form @submit.prevent="saveCard">
         <FormField label="Card Number">
-          <FormControl v-model="cardForm.CardNumber" />
+          <FormControl v-model="cardForm.CardNumber" readonly />
         </FormField>
         <FormField label="Card Type">
           <FormControl v-model="cardForm.CardType" />
