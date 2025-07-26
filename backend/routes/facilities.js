@@ -10,8 +10,24 @@ async function licenseTypeExists(id) {
 
 // Get all facilities
 router.get('/', async (req, res) => {
+  const {
+    search = null,
+    limit = 10,
+    offset = 0,
+  } = req.query
+
+  const lim = Number.parseInt(limit, 10)
+  const off = Number.parseInt(offset, 10)
+
   try {
-    const [rows] = await pool.query('SELECT * FROM OPC_Facility ORDER BY FacilityID DESC')
+    const [rows] = await pool.query(
+      `SELECT * FROM OPC_Facility
+       WHERE (? IS NULL OR IdentityNumber LIKE CONCAT('%', ?, '%')
+              OR Name LIKE CONCAT('%', ?, '%'))
+       ORDER BY FacilityID DESC
+       LIMIT ? OFFSET ?`,
+      [search, search, search, lim, off],
+    )
     res.json(rows)
   } catch (err) {
     console.error(err)
